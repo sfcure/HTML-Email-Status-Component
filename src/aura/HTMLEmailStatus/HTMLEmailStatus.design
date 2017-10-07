@@ -1,0 +1,15 @@
+<!--
+Author: Naval Sharma
+Website: https://sfcure.com
+GitHub: https://github.com/sfcure/html-email-status-component
+License: BSD 3-Clause License
+-->
+
+<design:component label="HTML Email Status">
+
+    <design:attribute name="componentCardTitle"
+                      label="Title"
+                      default="HTML Email Status"
+                      description="Title of the component on the page."/>
+
+</design:component>

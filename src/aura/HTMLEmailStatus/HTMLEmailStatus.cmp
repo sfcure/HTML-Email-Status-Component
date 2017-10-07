@@ -1,0 +1,121 @@
+<!--
+Author: Naval Sharma
+Website: https://sfcure.com
+GitHub: https://github.com/sfcure/html-email-status-component
+License: BSD 3-Clause License
+-->
+
+<aura:component controller="HTMLEmailStatusController" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" access="global" >
+    <aura:attribute name="recordId"
+                    type="String"
+                    description="The ID of the record which is parent of EmailStatus records. Provided by force:hasRecordId interface."/>
+
+    <aura:attribute name="componentCardTitle"
+                    type="String"
+                    default="HTML Email Status"
+                    access="global"
+                    description="Title of the lightning:card component wrapping content."/>	
+    
+    <aura:attribute name="sObjectName"
+                    type="String"
+                    default="Contact"
+                    access="global"
+                    description="sObject Name which is the type of record and either can be Lead or Contact. Provided by force:force:hasSObjectName interface."/>
+    
+    <aura:attribute name="fetchedEmailStatuses"
+                    type="EmailStatus[]"
+                    description="Array of email status objects. These are the records displayed in the component."/>
+
+    <!-- Events -->
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!-- Component Markup -->
+
+    <lightning:spinner aura:id="init-spinner" variant="brand" class="slds-hide"/>
+    <lightning:spinner aura:id="spinner" variant="brand" class="slds-hide"/>
+
+    <lightning:card iconName="{!( empty(v.componentCardTitle) ? '' : 'standard:email' )}" title="{!v.componentCardTitle + ' (' + v.fetchedEmailStatuses.length + ')'}">
+		
+        <div>
+        	
+            <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+            	<thead>
+                    <tr class="slds-text-title_caps">
+                        <th scope="col" class="slds-cell-wrap">
+                            <div title="Subject">Subject</div>
+                        </th>
+                        <th scope="col" class="slds-cell-wrap">
+                            <div title="Date Sent">Date Sent</div>
+                        </th>
+                        <th scope="col" class="slds-cell-wrap">
+                            <div title="Date Opened">Date Opened</div>
+                        </th>
+                        <th scope="col" class="slds-cell-wrap">
+                            <div title="Times Opened"># Times Opened</div>
+                        </th>
+                        <th scope="col" class="slds-cell-wrap">
+                            <div title="Last Opened">Last Opened</div>
+                        </th>
+                        <th scope="col" class="slds-cell-wrap">
+                        	<div title="Actions"> &nbsp; </div>
+                        </th>
+                    </tr>
+                </thead>	
+                <tbody>
+                	
+                     <aura:if isTrue="{! empty( v.fetchedEmailStatuses ) }">
+                         <tr>
+                             <th colspan="5">
+                                 <div class="slds-text-align_center">No items to display.</div>
+                             </th>
+                         </tr>
+                    </aura:if>
+                    
+                    <aura:iteration var="emailStatus" items="{!v.fetchedEmailStatuses}">
+                        <tr>
+                            <td data-label="Subject" class="slds-cell-wrap">
+                            	<div title="{!emailStatus.Subject}">
+                                	<a href="javascript:void(0);"
+                                       data-taskId="{!emailStatus.TaskId}"
+                                       onclick="{!c.handleLinkClick}">
+                                        {!emailStatus.Subject}
+                                    </a>
+                                </div>	
+                            </td>
+                            <td data-label="Date Sent" class="slds-cell-wrap">
+                                <div title="{!emailStatus.CreatedDateTimestamp}">
+                                    <lightning:formattedDateTime value="{!emailStatus.CreatedDateTimestamp}" year="numeric" month="numeric" day="numeric" hour="numeric" minute="numeric"/>
+                                </div>
+                            </td>
+                            <td data-label="Date Opened" class="slds-cell-wrap">
+                                <div title="{!emailStatus.FirstOpenDateTimestamp}">
+                                    <lightning:formattedDateTime value="{!emailStatus.FirstOpenDateTimestamp}" year="numeric" month="numeric" day="numeric" hour="numeric" minute="numeric"/>
+                                </div>
+                            </td>
+                            <td data-label="Times Opened" class="slds-cell-wrap">
+                                <div title="{!emailStatus.TimesOpened}" class="slds-text-align_center">
+                                	{!emailStatus.TimesOpened} 
+                                </div>
+                            </td>
+                            <td data-label="Last Opened" class="slds-cell-wrap">
+                                <div title="{!emailStatus.LastOpenDateTimestamp}">
+                                    <lightning:formattedDateTime value="{!emailStatus.LastOpenDateTimestamp}" year="numeric" month="numeric" day="numeric" hour="numeric" minute="numeric"/>
+                                </div>
+                            </td>
+                            <td data-label="Actions" class="slds-cell-wrap">
+                            	<lightning:buttonMenu alternativeText="Actions" onselect="{! c.handleMenuSelect }">
+                                    <lightning:menuItem label="Edit" value="{!'edit:' + emailStatus.TaskId}"/>
+                                    <lightning:menuItem label="Delete" value="{!'delete:' + emailStatus.TaskId}"/>
+                                </lightning:buttonMenu>
+                            </td>
+                        </tr>    
+                    </aura:iteration>
+                    
+                </tbody>
+            </table>
+            
+        </div>
+        
+    </lightning:card>
+</aura:component>
