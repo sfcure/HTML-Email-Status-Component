@@ -14,3 +14,6 @@ I found many questions regarding this feature on Success Community and it's bein
 - You must have enabled Email Tracking 
 - There must be a record created of EmailStatus object to pass the Test classes of package. It's required due to platform limitation as mentioned in the following article - 
 [EmailStatus entity within test classes](https://help.salesforce.com/articleView?id=000247964&language=en_US&type=1)
+
+## Snapshot of component
+![Snapshot](https://image.prntscr.com/image/xTN6Ecg_S9aViSUcl1NaQg.png)
