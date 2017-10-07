@@ -1,8 +1,9 @@
 # HTML-Email-Status-Component
 A Lightning Component to display HTML Email Status related list on a record.
 
-##Overview
+## Overview
 I found many questions regarding this feature on Success Community and it's being delayed from Salesforce side in delivering this well needed feature. So, I thought to create one and distribute this in the community.
+
 ![Idea on IdeaExchange](https://image.prntscr.com/image/fwSvW2R_QaOzKUGOxt9m9w.png)
 
 ## Managed package
