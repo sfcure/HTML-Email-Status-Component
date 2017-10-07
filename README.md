@@ -12,6 +12,7 @@ I found many questions regarding this feature on Success Community and it's bein
 
 ## Pre-Requsites for installing this package
 - You must have enabled Email Tracking 
+- This will work for Contact and Lead object as of now.
 - There must be a record created of EmailStatus object to pass the Test classes of package. It's required due to platform limitation as mentioned in the following article - 
 [EmailStatus entity within test classes](https://help.salesforce.com/articleView?id=000247964&language=en_US&type=1)
 
